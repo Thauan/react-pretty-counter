@@ -1,4 +1,5 @@
 import React, { forwardRef, useImperativeHandle, useRef, useState } from 'react'
+import './counter.css'
 
 type Props = {
   value?: number
@@ -6,7 +7,7 @@ type Props = {
   color?: string
 }
 
-const Counter = ({ value = 0, name, color = '#F35B04' }: Props, ref: any) => {
+const Counter = ({ value = 1, name, color = '#F35B04' }: Props, ref: any) => {
   const [counter, setCounter] = useState(value)
   const counterRef = useRef<any>(null)
 
@@ -24,13 +25,8 @@ const Counter = ({ value = 0, name, color = '#F35B04' }: Props, ref: any) => {
   }
 
   const handleValueChange = (newValue: any | string | number, isField?: boolean) => {
-    console.log(newValue, 'newValue')
-    console.log(isField, 'isField')
-
-    if (isField === void 0) {
-      isField = false
-    }
     newValue = parseInt(newValue, 10)
+
     if (!newValue) {
       if (isField) {
         newValue = ''
@@ -41,6 +37,7 @@ const Counter = ({ value = 0, name, color = '#F35B04' }: Props, ref: any) => {
     if (newValue < 0) {
       newValue = 1
     }
+
     if (!isField) {
       counterRef.current.style.transform = newValue > counter ? 'translateY(-100%)' : 'translateY(100%)'
       counterRef.current.style.opacity = 0
